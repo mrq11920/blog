@@ -26,6 +26,24 @@
         @endforeach
       </ul>
     </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ Auth::user()->name }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <!-- <li><a class="dropdown-item" href=""> {{ __('Log Out') }}</a></li> -->
+        <li>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+
+            <a class="link-center" href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+              {{ __('Log Out') }}
+            </a>
+          </form>
+        </li>
+      </ul>
+    </div>
     <div id="table_data">
       @include('posts.pagination')
     </div>

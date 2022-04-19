@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+
+Route::get('/posts/pagination',[PostController::class,'fetch_data']);
+// Route::resource('posts', PostController::class);
+Route::group(['middleware'=>'auth'],function(){
+    Route::resource('posts', PostController::class);
+});
+
+Route::post('ckeditor/image_upload', [CKEditorController::class,'upload'])->name('upload');
+Route::get('changeLanguage/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
+
+
 
 require __DIR__.'/auth.php';
