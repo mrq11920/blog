@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Facade\FlareClient\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -18,6 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
+
+        //check if user is logged in 
+        if(!Auth::check())
+        {
+            redirect()->route('login');
+        }
         // $posts = Post::all();
         // $posts = DB::table('posts')->paginate(15);
         $posts = Post::paginate(3);
