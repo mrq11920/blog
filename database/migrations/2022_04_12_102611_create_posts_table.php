@@ -17,7 +17,8 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('content');
-            $table->boolean('is_published');
+            // $table->boolean('is_published');
+            $table->unsignedTinyInteger('state')->default(config('post.pending'));
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->useCurrent();
         });
