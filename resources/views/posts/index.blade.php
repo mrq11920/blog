@@ -4,9 +4,16 @@
 <div class="row">
   <div class="col-sm-12">
     <h1 class="display-3">Posts</h1>
-    <div>
+    <div class="col-md-12 bg-light text-right ">
       <a href="{{ route('posts.create')}}" class="btn btn-primary mb-3">Add Post</a>
+      <a href="{{ route('posts.index') }}" class="btn btn-primary mb-3">Public Posts</a>
+      <a href="{{ route('posts.pending') }}" class="btn btn-primary mb-3">Pending Posts</a>
+      <a href="{{ route('posts.cancel') }}" class="btn btn-primary mb-3">Cancel Posts</a>
     </div>
+
+    <!-- <div>
+      <a 
+    </div> -->
 
     @if(session()->get('success'))
     <div class="alert alert-success">
@@ -14,7 +21,13 @@
     </div>
     @endif
 
-   
+    @if(session()->get('failure'))
+    <div class="alert alert-danger">
+      {{session()->get('failure') }}
+    </div>
+    @endif
+
+
     <div id="table_data">
       @include('posts.pagination')
     </div>
@@ -29,7 +42,7 @@
 
         function fetch_data(page) {
           $.ajax({
-            url: "/posts/pagination?page=" + page,
+            url: "/posts/pagination?page=" + page + '&state=public',
             success: function(data) {
               $('#table_data').html(data);
             }

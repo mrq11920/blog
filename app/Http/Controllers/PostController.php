@@ -21,8 +21,11 @@ class PostController extends Controller
     {
         // $posts = Post::all();
         // $posts = DB::table('posts')->paginate(15);
-        $posts = Post::paginate(config('post.post_per_page'));
-
+        $posts = Post::where('state', config('post.public'))->paginate(config('post.post_per_page'));
+        // $type = 1;
+        // $posts = DB::table('posts')->select('*')->where('state','=',$type)->get()->paginate(config('post.post_per_page'));
+        // $query = DB::select('select * from posts where state = ?', [1]);
+        // $posts = new Paginator($query, $maxPage);
         return view('posts.index', compact('posts'));
     }
 
@@ -30,9 +33,44 @@ class PostController extends Controller
     {
         // dd('fsdfs');
         if ($request->ajax()) {
-            $posts = Post::paginate(config('post.post_per_page'));
+            // dd($request->get('type'));
+            error_log($request->get('state'));
+            $state = config('post.' . $request->get('state'));
+            // $posts = Post::where('type','=',$type)->paginate(config('post.post_per_page'));
+            // error_log($posts->);
+            $posts = $posts = Post::where('state', $state)->paginate(config('post.post_per_page'));
+
+
+            // $posts = Post::paginate(config('post.post_per_page'));
             return view('posts.pagination', compact('posts'))->render();
         }
+    }
+    // return posts where state = 2 (pending)
+    function pending(Request $request)
+    {
+        $posts = Post::where('state', config('post.pending'))->paginate(config('post.post_per_page'));
+        return view('posts.pending', compact('posts'));
+    }
+    // return posts where state = 3 (cancel)
+    function cancel(Request $request)
+    {
+        $posts = Post::where('state', config('post.cancel'))->paginate(config('post.post_per_page'));
+        return view('posts.cancel', compact('posts'));
+    }
+
+    //aprrove a post (change the state of a post from pending to public)
+    function approve(Request $request)
+    {
+        // dd('approve');
+        // dd($request->id);
+        $post = Post::find($request->id);
+        if ($post && Auth::user()->type == 'admin') {
+            $post->state = config('post.public');
+            $post->save();
+            return redirect('/posts')->with('success', 'Post saved.');
+        }
+        return redirect('/posts')->with('failure', 'Can not approve this post');
+        // return redirect()->back();
     }
 
     /**
@@ -57,7 +95,7 @@ class PostController extends Controller
         $post = new Post([
             'title' => $request->get('title'),
             'content' => $request->input('content'),
-            'is_published' => $request->get('is_published')
+            // 'state' => $request->get('is_published')
         ]);
 
 
@@ -115,7 +153,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
+        // $post->delete();
+        $post->state = config('post.cancel');
+        $post->save();
         return redirect('/posts')->with('success', 'Post removed.');  // -> resources/views/stocks/index.blade.php
     }
 }

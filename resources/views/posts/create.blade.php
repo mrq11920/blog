@@ -41,13 +41,13 @@
           <textarea class="form-control" id="content-ckeditor" name="content"></textarea>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="is_published">Publish:</label>
           <select id="is_published" name="is_published">
             <option value="0">False</option>
             <option value="1">True</option>
           </select>
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-primary">Add Post</button>
       </form>
     </div>
