@@ -36,11 +36,12 @@
 </head>
 
 <body>
-    <main>
-      <div class="container">
-        @yield('main')
-      </div>
-    </main>
+  @include('navbar')
+  <main>
+    <div class="container">
+      @yield('main')
+    </div>
+  </main>
   </div>
 
 

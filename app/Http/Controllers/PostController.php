@@ -19,15 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-
-        //check if user is logged in 
-        if(!Auth::check())
-        {
-            redirect()->route('login');
-        }
         // $posts = Post::all();
         // $posts = DB::table('posts')->paginate(15);
-        $posts = Post::paginate(3);
+        $posts = Post::paginate(config('post.post_per_page'));
 
         return view('posts.index', compact('posts'));
     }
@@ -36,7 +30,7 @@ class PostController extends Controller
     {
         // dd('fsdfs');
         if ($request->ajax()) {
-            $posts = Post::paginate(3);
+            $posts = Post::paginate(config('post.post_per_page'));
             return view('posts.pagination', compact('posts'))->render();
         }
     }
