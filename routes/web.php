@@ -42,6 +42,15 @@ Route::group(['middleware' => 'auth'], function () {
 Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 Route::get('changeLanguage/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
+Route::post('verify-email', [RegistrationController::class, '__invoke'])->name('register.verify');
+Route::get('verify-email/verify/{confirmationCode}', [
+    'as' => 'register.verify.email',
+    'uses' => 'App\Http\Controllers\RegistrationController@register'
+]);
+// Route::get('verify-email/verify/{confirmationCode}', [
+//     'as' => 'register.verify.email',
+//     'uses' => 'App\Http\Controllers\RegistrationController@confirm'
+// ]);
 
 
 require __DIR__ . '/auth.php';

@@ -3,7 +3,7 @@
         <div class="account-page">
             <div class="account-center">
                 <div class="account-box">
-                    <form action="{{ route('register') }}" method="POST" class="form-register">
+                    <form action="{{ route('register.verify') }}" method="POST" class="form-email-verify">
                         @csrf
                         <!-- <input type="hidden" name="_token" value="xA3gslIaSFLwW146Kcg79oiuEACHpkOGaWj8EVYd"> -->
                         <div class="account-logo">
