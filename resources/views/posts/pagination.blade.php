@@ -17,7 +17,7 @@
             <td>{{$post->content}}</td>
             <td>{{ config('post.'.$post->state)}}</td>
             <td>{{$post->updated_at}}</td>
-            @if(auth()->user()->type == 'admin' && $post->state != config('post.public'))
+            @if(auth()->user()->type == config('user.admin') && $post->state != config('post.public'))
             <td>
                 <form action="{{ route('posts.approve') }}" method="post">
                     @csrf

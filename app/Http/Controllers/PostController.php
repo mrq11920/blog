@@ -64,12 +64,12 @@ class PostController extends Controller
         // dd('approve');
         // dd($request->id);
         $post = Post::find($request->id);
-        if ($post && Auth::user()->type == 'admin') {
+        if ($post) {
             $post->state = config('post.public');
             $post->save();
             return redirect('/posts')->with('success', 'Post saved.');
         }
-        return redirect('/posts')->with('failure', 'Can not approve this post');
+        return redirect('/posts')->with('failure', 'This post does not exist');
         // return redirect()->back();
     }
 
