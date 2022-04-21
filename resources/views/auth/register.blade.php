@@ -1,59 +1,41 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+    <div class="main-wrapper account-wrapper">
+        <div class="account-page">
+            <div class="account-center">
+                <div class="account-box">
+                    <form action="{{ route('register') }}" method="POST" class="form-register">
+                        @csrf
+                        <!-- <input type="hidden" name="_token" value="xA3gslIaSFLwW146Kcg79oiuEACHpkOGaWj8EVYd"> -->
+                        <div class="account-logo">
+                            <a href="javascript:void(0)"><img src="http://lowendviet.sudobo.com/uploads/images/1649067937_818048241.jpeg" alt=""></a>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" autofocus="" class="form-control" name="email" value="">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label>Mật khẩu</label>
+                            <input type="password" class="form-control" name="password" value="">
+                        </div>
+                        <div class="form-group text-left">
+                            <input type="checkbox" class="form-check-input ml-0 mt-1" id="remember" name="remember">
+                            <label class="form-check-label ml-4" for="remember">Ghi nhớ đăng nhập</label>
+                        </div> -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary account-btn">Đăng nhập</button>
+                        </div>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                        <!-- <div class="form-group text-center">
+                            @if (Route::has('password.request'))
+                            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                                Quên mật khẩu ?
+                            </a>
+                            @endif
+                        </div> -->
+                    </form>
+                </div>
             </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
+        </div>
+    </div>
 </x-guest-layout>

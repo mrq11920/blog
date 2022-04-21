@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+// use 
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,11 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/login2',function(){
+//     return view('auth.login2');
+// });
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
