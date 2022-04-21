@@ -25,13 +25,13 @@ class UsersTableSeeder extends Seeder
             // 'name',
             // 'email',
             // 'password',
-            $type = $i % 10 == 0 ? "admin":"user";
+            $type = $i % 10 == 0 ? config('user.admin'):config('user.user');
           
             DB::table('users')->insert([
                 'name' => $faker->name(),
                 'type' => $type,
                 'email' => $faker->unique()->email(),
-                'password' => Hash::make($faker->password())
+                'password' => Hash::make('Q.ewr2333@@@%')
             ]);
         }
     }

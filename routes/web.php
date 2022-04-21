@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/posts/pending', [PostController::class,'pending'])->name('posts.pending');
     Route::get('/posts/cancel', [PostController::class,'cancel'])->name('posts.cancel');
-    Route::post('/posts/approve', [PostController::class,'approve'])->name('posts.approve');
+    Route::post('/posts/approve', [PostController::class,'approve'])->name('posts.approve')->middleware('authorization');
 
     Route::get('/posts/pagination', [PostController::class, 'fetch_data']);
     Route::resource('posts', PostController::class);
