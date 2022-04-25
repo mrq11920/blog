@@ -36,7 +36,7 @@ class PostController extends Controller
             $state_name = $request->get('state') ??  config('post.default_state_name');
             // $posts = Post::where('type','=',$type)->paginate(config('post.post_per_page'));
             // error_log($posts->);
-            $posts = $posts = Post::where('state', config('post.'.$state_name))->paginate(config('post.post_per_page'));
+            $posts = $posts = Post::where('state', config('post.' . $state_name))->paginate(config('post.post_per_page'));
 
             // $posts = Post::paginate(config('post.post_per_page'));
             return view('posts.pagination', compact('posts'))->render();
@@ -94,10 +94,12 @@ class PostController extends Controller
             'content' => $request->input('content'),
             // 'state' => $request->get('is_published')
         ]);
-
-
-        // $content = $request->input('content-ckeditor');
-
+        $file = $request->file('image');
+        if ($file) {
+            $file_name = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('storage/uploads/image'), $file_name);
+            $post['image'] = $file_name;
+        }
         $post->save();
 
         return redirect('/posts')->with('success', 'Post saved.');
@@ -136,7 +138,13 @@ class PostController extends Controller
     {
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->is_published =  $request->get('is_published');
+
+        $file = $request->file('image');
+        if ($file) {
+            $file_name = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/image'), $file_name);
+            $post['image'] = $file_name;
+        }
 
         $post->save();
         return redirect('/posts')->with('success', 'Post updated.');
