@@ -17,7 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->unsignedTinyInteger('type')->default(config('user.user'));
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('confirmed')->default(0);
+            $table->string('confirmation_code')->nullable();
+            $table->unsignedTinyInteger('state')->default(config('user.pending'));
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

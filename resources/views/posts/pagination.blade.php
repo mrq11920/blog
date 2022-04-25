@@ -3,8 +3,9 @@
         <tr>
             <td>ID</td>
             <td>Title</td>
+            <td>Image</td>
             <td>Content</td>
-            <td>Publish</td>
+            <td>State</td>
             <td>Updated at</td>
             <td colspan=2>Actions</td>
         </tr>
@@ -14,9 +15,23 @@
         <tr>
             <td>{{$post->id}}</td>
             <td>{{$post->title}} </td>
-            <td>{{$post->content}}</td>
-            <td>{{$post->is_published}}</td>
+            <td>{{asset('storage/uploads/image/'.$post->image)}}</td>
+            <td>{!!$post->content!!}</td>
+            <td>{{ config('post.'.$post->state)}}</td>
             <td>{{$post->updated_at}}</td>
+            @if(auth()->user()->type == config('user.admin') && $post->state != config('post.public'))
+            <td>
+                <form action="{{ route('posts.approve') }}" method="post">
+                    @csrf
+                    <!-- @method('PATCH') -->
+                    <!-- <div class="form-group">
+                        <input type="text" class="form-control" name="id" value="{{$post->id}}" />
+                    </div> -->
+                    <input name="id" type="hidden" value="{{$post->id}}">
+                    <button class="btn btn-success" type="submit">Approve</button>
+                </form>
+            </td>
+            @endif
             <td>
                 <a href="{{ route('posts.edit',$post)}}" class="btn btn-primary">Edit</a>
             </td>

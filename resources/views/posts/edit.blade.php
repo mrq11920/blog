@@ -37,20 +37,15 @@
                 <label for="title">Title:*</label>
                 <input type="text" class="form-control" name="title" value="{{ $post->title }}" />
             </div>
-
+            <div class="form-group">
+                <label for="image">Add image:</label>
+                <input type="file" class="form-control" name="image"/>
+            </div>
             <div class="form-group">
                 <label for="ticket">Content:*</label>
-                <textarea class="form-control" id="content-ckeditor" name="content" ></textarea>
+                <textarea class="form-control" id="content-ckeditor" name="content"></textarea>
                 <input type="hidden" id='content-value' value="{{ $post->content }}">
                 <!-- <input type="text" class="form-control" name="content" value="{{ $post->content }}" /> -->
-            </div>
-
-            <div class="form-group">
-                <label for="is_published">Publish:</label>
-                <select id="is_published" name="is_published" value="{{ $post->is_published }}">
-                    <option value="0">False</option>
-                    <option value="1">True</option>
-                </select>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>

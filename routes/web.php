@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\CKEditorController;
+use App\Http\Controllers\UserController;
+
 // use 
-// use App\Http\Controllers\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,42 +21,42 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
-// Route::get('/page', function(){
-//     return view('page');
+// Route::get('/login2',function(){
+//     return view('auth.login2');
 // });
 
-Route::get("/posts/pagination",[PostController::class,'fetch_data']);
 
-Route::resource("posts",PostController::class);
-
-
-Route::post('ckeditor/image_upload', [CKEditorController::class,'upload'])->name('upload');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::resource('posts', PostController::class);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('posts/pending', [PostController::class, 'pending'])->name('posts.pending');
+    Route::get('posts/cancel', [PostController::class, 'cancel'])->name('posts.cancel');
+    Route::post('posts/approve', [PostController::class, 'approve'])->name('posts.approve')->middleware('authorization');
 
-Route::get('changeLanguage/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
-
-// Route::get('changeLanguage/{locale}', function ($locale = null) {
-//     if (isset($locale) && in_array($locale, config('app.available_locales'))) {
-//         app()->setLocale($locale);
-        
-//     }
+    Route::get('posts/pagination', [PostController::class, 'fetch_data']);
+    Route::resource('posts', PostController::class);
     
-//     redirect()->back();
-// });
-
-
-Route::get('/convert-to-json', function () {
-    return App\Models\Post::paginate(3);
+    Route::get('users/pagination', [UserController::class, 'fetch']);
+    Route::resource('users', UserController::class);
 });
 
-// Route::get('/pagination', [PaginationController::class,'index']);
-// Route::get('pagination/fetch_data', [PaginationController::class,'fetch_data']);
 
-Route::get('user/(:any)', function($name){
-    return "Xin chào " . $name;
-  });
+Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
+Route::get('changeLanguage/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
+
+Route::post('verify-email', [RegistrationController::class, '__invoke'])->name('register.verify');
+Route::get('verify-email/verify/{confirmationCode}', [
+    'as' => 'register.verify.email',
+    'uses' => 'App\Http\Controllers\RegistrationController@register'
+]);
+// Route::get('verify-email/verify/{confirmationCode}', [
+//     'as' => 'register.verify.email',
+//     'uses' => 'App\Http\Controllers\RegistrationController@confirm'
+// ]);
+
+
+require __DIR__ . '/auth.php';

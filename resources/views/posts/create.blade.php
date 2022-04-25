@@ -28,11 +28,16 @@
         </ul>
       </div> -->
 
-      <form method="post" action="{{ route('posts.store') }}">
+      <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
           <label for="title">Title:*</label>
           <input type="text" class="form-control" name="title" />
+        </div>
+
+        <div class="form-group">
+          <label for="image">Add image:</label>
+          <input type="file" class="form-control" name="image"/>
         </div>
 
         <div class="form-group">
@@ -41,13 +46,13 @@
           <textarea class="form-control" id="content-ckeditor" name="content"></textarea>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="is_published">Publish:</label>
           <select id="is_published" name="is_published">
             <option value="0">False</option>
             <option value="1">True</option>
           </select>
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-primary">Add Post</button>
       </form>
     </div>

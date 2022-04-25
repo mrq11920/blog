@@ -1,77 +1,44 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+<x-guest-layout>
+    <div class="main-wrapper account-wrapper">
+        <div class="account-page">
+            <div class="account-center">
+                <div class="account-box">
+                    <form action="{{ route('register') }}" method="POST" class="form-register">
                         @csrf
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <!-- <input type="hidden" name="_token" value="xA3gslIaSFLwW146Kcg79oiuEACHpkOGaWj8EVYd"> -->
+                        <div class="account-logo">
+                            <a href="javascript:void(0)"><img src="http://lowendviet.sudobo.com/uploads/images/1649067937_818048241.jpeg" alt=""></a>
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" autofocus="" class="form-control" name="email" value="">
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <!-- <div class="form-group">
+                            <label>Mật khẩu</label>
+                            <input type="password" class="form-control" name="password" value="">
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                        <div class="form-group text-left">
+                            <input type="checkbox" class="form-check-input ml-0 mt-1" id="remember" name="remember">
+                            <label class="form-check-label ml-4" for="remember">Ghi nhớ đăng nhập</label>
+                        </div> -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary account-btn">Xác nhận</button>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
+                        
+                        <!-- <div class="form-group text-center">
+                            @if (Route::has('password.request'))
+                            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                                Quên mật khẩu ?
+                            </a>
+                            @endif
+                        </div> -->
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
-</div>
-@endsection
+    <script>
+
+    </script>
+</x-guest-layout>
