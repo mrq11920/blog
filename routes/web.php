@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+
 // use 
 
 /*
@@ -31,13 +33,16 @@ Route::get('/', function () {
 
 // Route::resource('posts', PostController::class);
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/posts/pending', [PostController::class,'pending'])->name('posts.pending');
-    Route::get('/posts/cancel', [PostController::class,'cancel'])->name('posts.cancel');
-    Route::post('/posts/approve', [PostController::class,'approve'])->name('posts.approve')->middleware('authorization');
+    Route::get('posts/pending', [PostController::class, 'pending'])->name('posts.pending');
+    Route::get('posts/cancel', [PostController::class, 'cancel'])->name('posts.cancel');
+    Route::post('posts/approve', [PostController::class, 'approve'])->name('posts.approve')->middleware('authorization');
 
-    Route::get('/posts/pagination', [PostController::class, 'fetch_data']);
+    Route::get('posts/pagination', [PostController::class, 'fetch_data']);
     Route::resource('posts', PostController::class);
+    Route::get('users/pagination', [UserController::class, 'fetch']);
+    Route::resource('users', UserController::class);
 });
+
 
 Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 Route::get('changeLanguage/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
