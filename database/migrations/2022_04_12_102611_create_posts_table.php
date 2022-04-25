@@ -16,8 +16,8 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('image');
             $table->string('content');
-            // $table->boolean('is_published');
             $table->unsignedTinyInteger('state')->default(config('post.pending'));
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->useCurrent();

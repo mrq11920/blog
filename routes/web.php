@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('posts/pagination', [PostController::class, 'fetch_data']);
     Route::resource('posts', PostController::class);
+    
     Route::get('users/pagination', [UserController::class, 'fetch']);
     Route::resource('users', UserController::class);
 });

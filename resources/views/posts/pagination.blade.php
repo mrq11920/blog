@@ -3,6 +3,7 @@
         <tr>
             <td>ID</td>
             <td>Title</td>
+            <td>Image</td>
             <td>Content</td>
             <td>State</td>
             <td>Updated at</td>
@@ -14,7 +15,8 @@
         <tr>
             <td>{{$post->id}}</td>
             <td>{{$post->title}} </td>
-            <td>{{$post->content}}</td>
+            <td>{{asset('storage/uploads/image/'.$post->image)}}</td>
+            <td>{!!$post->content!!}</td>
             <td>{{ config('post.'.$post->state)}}</td>
             <td>{{$post->updated_at}}</td>
             @if(auth()->user()->type == config('user.admin') && $post->state != config('post.public'))

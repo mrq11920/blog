@@ -28,11 +28,16 @@
         </ul>
       </div> -->
 
-      <form method="post" action="{{ route('posts.store') }}">
+      <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
           <label for="title">Title:*</label>
           <input type="text" class="form-control" name="title" />
+        </div>
+
+        <div class="form-group">
+          <label for="image">Add image:</label>
+          <input type="file" class="form-control" name="image"/>
         </div>
 
         <div class="form-group">
