@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('confirmed')->default(0);
             $table->string('confirmation_code')->nullable();
+            $table->unsignedTinyInteger('state')->default(config('user.pending'));
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -7,5 +7,6 @@ return [
     'public' => '1',
     'pending' => '2',
     'cancel' => '3',
+    'default_state_name' => 'public',
     
 ];

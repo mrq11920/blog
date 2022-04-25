@@ -31,15 +31,12 @@ class PostController extends Controller
 
     function fetch_data(Request $request)
     {
-        // dd('fsdfs');
         if ($request->ajax()) {
             // dd($request->get('type'));
-            error_log($request->get('state'));
-            $state = config('post.' . $request->get('state'));
+            $state_name = $request->get('state') ??  config('post.default_state_name');
             // $posts = Post::where('type','=',$type)->paginate(config('post.post_per_page'));
             // error_log($posts->);
-            $posts = $posts = Post::where('state', $state)->paginate(config('post.post_per_page'));
-
+            $posts = $posts = Post::where('state', config('post.'.$state_name))->paginate(config('post.post_per_page'));
 
             // $posts = Post::paginate(config('post.post_per_page'));
             return view('posts.pagination', compact('posts'))->render();
