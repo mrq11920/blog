@@ -15,10 +15,10 @@ class BlogController extends Controller
     public function index()
     {
         //
-        // if(! auth()->user())
-        // {
-        //     return view('welcome');
-        // }
+        if(! auth()->user())
+        {
+            return view('welcome');
+        }
         $posts = Post::paginate(config('post.post_per_page'));
         return view('blog',compact('posts'));
     }
