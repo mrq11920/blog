@@ -30,7 +30,6 @@ class AdminAuthentication
     {
         if (empty($guards)) {
             $guards = [null];
-            // $this->unauthenticated($request, $guards);
         }
         $isAuthenticated = null;
         foreach ($guards as $guard) {
