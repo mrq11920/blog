@@ -15,13 +15,13 @@
         <tr>
             <td>{{$post->id}}</td>
             <td>{{$post->title}} </td>
-            <td>{{asset('storage/uploads/image/'.$post->image)}}</td>
+            <td>{{empty($post->image) ? '': asset('storage/uploads/image/'.$post->image)}}</td>
             <td>{!!$post->content!!}</td>
-            <td>{{ config('post.'.$post->state)}}</td>
+            <td class='state-name'>{{ config('post.'.$post->state)}}</td>
             <td>{{$post->updated_at}}</td>
             @if(auth()->user()->type == config('user.admin') && $post->state != config('post.public'))
             <td>
-                <form action="{{ route('posts.approve') }}" method="post">
+                <form action="{{ route('admin.posts.approve') }}" method="post">
                     @csrf
                     <!-- @method('PATCH') -->
                     <!-- <div class="form-group">
@@ -33,13 +33,13 @@
             </td>
             @endif
             <td>
-                <a href="{{ route('posts.edit',$post)}}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('admin.posts.edit',$post)}}" class="btn btn-primary">Edit</a>
             </td>
             <td>
-                <a href="{{ route('posts.show',$post) }}" class="btn btn-info">Show</a>
+                <a href="{{ route('admin.posts.show',$post) }}" class="btn btn-info">Show</a>
             </td>
             <td>
-                <form action="{{ route('posts.destroy', $post)}}" method="post">
+                <form action="{{ route('admin.posts.destroy', $post)}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" type="submit">Delete</button>

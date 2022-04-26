@@ -5,9 +5,9 @@
   <div class="col-sm-12">
     <h1 class="display-3">Users</h1>
     <div class="col-md-12 bg-light text-right ">
-      <a href="{{route('users.index','state=approved')}}" class="btn btn-primary mb-3">Approved user</a>
-      <a href="{{route('users.index','state=pending')}}" class="btn btn-primary mb-3">Pending user</a>
-      <a href="{{route('users.index','state=cancelled')}}" class="btn btn-primary mb-3">Cancelled user</a>
+      <a href="{{route('admin.users.index','state=approved')}}" class="btn btn-primary mb-3">Approved user</a>
+      <a href="{{route('admin.users.index','state=pending')}}" class="btn btn-primary mb-3">Pending user</a>
+      <a href="{{route('admin.users.index','state=cancelled')}}" class="btn btn-primary mb-3">Cancelled user</a>
     </div>
 
     @if(session()->get('success'))
@@ -38,7 +38,7 @@
 
         function fetch_data(page,state_name) {
           $.ajax({
-            url: "/users/pagination?page=" + page + '&state=' + state_name,
+            url: "users/pagination?page=" + page + '&state=' + state_name,
             success: function(data) {
               $('#table_data').html(data);
             }

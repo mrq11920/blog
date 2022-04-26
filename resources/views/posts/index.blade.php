@@ -5,10 +5,11 @@
   <div class="col-sm-12">
     <h1 class="display-3">Posts</h1>
     <div class="col-md-12 bg-light text-right ">
-      <a href="{{ route('posts.create')}}" class="btn btn-primary mb-3">Add Post</a>
-      <a href="{{ route('posts.index') }}" class="btn btn-primary mb-3">Public Posts</a>
-      <a href="{{ route('posts.pending') }}" class="btn btn-primary mb-3">Pending Posts</a>
-      <a href="{{ route('posts.cancel') }}" class="btn btn-primary mb-3">Cancel Posts</a>
+      <a href="{{ route('admin.posts.create')}}" class="btn btn-primary mb-3">Add Post</a>
+      <a href="{{route('admin.posts.index','state=public')}}" class="btn btn-primary mb-3">Public Posts</a>
+      <a href="{{route('admin.posts.index','state=pending')}}" class="btn btn-primary mb-3">Pending Posts</a>
+      <a href="{{route('admin.posts.index','state=cancel')}}" class="btn btn-primary mb-3">Cancel Posts</a>
+    </div>
     </div>
 
     <!-- <div>
@@ -37,12 +38,13 @@
         $(document).on('click', '.pagination a', function(event) {
           event.preventDefault();
           var page = $(this).attr('href').split('page=')[1];
-          fetch_data(page);
+          var state_name = document.getElementsByClassName('state-name')[0].innerText;
+          fetch_data(page,state_name);
         });
 
-        function fetch_data(page) {
+        function fetch_data(page,state_name) {
           $.ajax({
-            url: "/posts/pagination?page=" + page + '&state=public',
+            url: "posts/pagination?page=" + page + '&state='+state_name,
             success: function(data) {
               $('#table_data').html(data);
             }

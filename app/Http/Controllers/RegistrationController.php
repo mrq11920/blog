@@ -18,7 +18,7 @@ class RegistrationController extends Controller
     public function __invoke(Request $request)
     {
         $email = $request->email;
-        error_log($email);
+        // error_log($email);
         $user = User::where('email', $email)->first();
         // case: resend email
         $confirmation_code = Str::random(30);

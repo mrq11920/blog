@@ -17,7 +17,7 @@
             <td>{{$user->updated_at}}</td>
             @if(auth()->user()->type == config('user.admin') && $user->state != config('user.approved'))
             <td>
-                <form action="{{ route('users.update',$user->id) }}" method='post'>
+                <form action="{{ route('admin.users.update',$user->id) }}" method='post'>
                     @method('PATCH')
                     @csrf
                     <input name="state" type="hidden" value="approved">
@@ -27,7 +27,7 @@
             @endif
             @if($user->state != config('user.cancelled'))
             <td>
-                <form action="{{ route('users.destroy', $user->id)}}" method="post">
+                <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" type="submit">Delete</button>
