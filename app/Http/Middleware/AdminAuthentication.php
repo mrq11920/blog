@@ -53,7 +53,24 @@ class AdminAuthentication
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        $this->authenticate($request, $guards);
+        // $this->authenticate($request, $guards);
+        if (empty($guards)) {
+            $guards = [null];
+        }
+
+        foreach ($guards as $guard) {
+            // error_log('guard --> '.$guard);
+            if ($this->auth->guard($guard)->check()) {
+                if($this->auth->user()->type !=config('user.admin'))
+                {
+                    $this->auth->guard($guard)->logout();
+                    return redirect()->to(route('admin.login'))->with('failure','User does not have authorization');
+                }
+                $this->auth->shouldUse($guard);
+                break;
+            }
+        }
+
 
         return $next($request);
     }
@@ -103,7 +120,6 @@ class AdminAuthentication
      */
     protected function authenticate($request, array $guards)
     {
-
         if (empty($guards)) {
             $guards = [null];
         }
@@ -142,8 +158,6 @@ class AdminAuthentication
      */
     protected function redirectTo($request)
     {
-        // error_log('redirectTo adminmiddleware');
-        // error_log(route('admin.login'));
         return route('admin.login');
     }
 }
