@@ -22,13 +22,9 @@ class RegistrationController extends Controller
         // case: resend email
         $confirmation_code = Str::random(30);
         if ($user) {
-            error_log('user exists');
             $user->confirmation_code = $confirmation_code;
             $user->save();
         } else {
-            //create new user
-            error_log('create new user');
-
             User::create([
                 'name' => '',
                 'password' => 'sdflksjdlfw3',
