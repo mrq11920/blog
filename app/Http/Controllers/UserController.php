@@ -97,9 +97,9 @@ class UserController extends Controller
         {
             $user->state = config('user.'.$state_name);
             $user->save();
-            return redirect('/users')->with('success', 'User updated.');
+            return redirect()->back()->with('success', 'User updated.');
         }
-        return redirect('/users')->with('failure','User not found.');
+        return redirect()->back()->with('failure','User not found.');
     }
 
     /**
@@ -117,6 +117,6 @@ class UserController extends Controller
             $user->state = config('user.cancelled');
             $user->save();
         }
-        return redirect('/users')->with('success', 'User removed.');  // -> resources/views/stocks/index.blade.php
+        return redirect()->back()->with('success', 'User removed.');  // -> resources/views/stocks/index.blade.php
     }
 }

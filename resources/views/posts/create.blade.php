@@ -28,7 +28,7 @@
         </ul>
       </div> -->
 
-      <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+      <form method="post" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
           <label for="title">Title:*</label>

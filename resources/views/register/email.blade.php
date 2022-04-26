@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-admin-layout>
     <div class="main-wrapper account-wrapper">
         <div class="account-page">
             <div class="account-center">
