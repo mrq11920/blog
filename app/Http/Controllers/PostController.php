@@ -27,21 +27,14 @@ class PostController extends Controller
     function fetch_data(Request $request)
     {
         if ($request->ajax()) {
-            // dd($request->get('type'));
             $state_name = $request->get('state') ??  'pending';
-            // $posts = Post::where('type','=',$type)->paginate(config('post.post_per_page'));
-            // error_log($posts->);
             $posts = $posts = Post::where('state', config('post.' . $state_name))->paginate(config('post.post_per_page'));
-
-            // $posts = Post::paginate(config('post.post_per_page'));
             return view('posts.pagination', compact('posts'))->render();
         }
     }
-    //aprrove a post (change the state of a post from pending to public)
+    //approve a post (change the state of a post from pending to public)
     function approve(Request $request)
     {
-        // dd('approve');
-        // dd($request->id);
         $post = Post::find($request->id);
         if ($post) {
             $post->state = config('post.public');
@@ -49,7 +42,6 @@ class PostController extends Controller
             return redirect()->back()->with('success', 'Post saved.');
         }
         return redirect()->back()->with('failure', 'This post does not exist');
-        // return redirect()->back();
     }
 
     /**
@@ -75,14 +67,12 @@ class PostController extends Controller
             'title' => $request->get('title'),
             'content' => $request->input('content'),
             'image'=>''
-            // 'state' => $request->get('is_published')
         ]);
         $file = $request->file('image');
         if ($file) {
             $file_name = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('storage/uploads/image'), $file_name);
             $post['image'] = $file_name;
-            dd($file_name);
         }
         $post->save();
 
