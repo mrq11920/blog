@@ -5,8 +5,9 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\BlogController;
 
-// use 
+// use
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,11 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('blog');
+// });
+
+Route::get('/',[BlogController::class,'index']);
 
 // Route::get('/login2',function(){
 //     return view('auth.login2');
@@ -42,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-   
+
 
     Route::get('users/pagination', [UserController::class, 'fetch']);
     Route::resource('users', UserController::class, ['as' => 'admin']);
