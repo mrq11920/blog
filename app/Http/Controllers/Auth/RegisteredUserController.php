@@ -33,7 +33,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        error_log('into store method');
         // $request->validate([
         //     'name' => ['required', 'string', 'max:255'],
         //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -41,7 +40,6 @@ class RegisteredUserController extends Controller
         // ]);
 
         $user = User::where('email',$request->email)->first();
-        error_log('user email --> '.$user->email);
         if($user)
         {
             $user->name = $request->name;
@@ -55,7 +53,7 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
         }
-      
+
 
         event(new Registered($user));
 

@@ -16,9 +16,6 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $state_name = $request->query('state') ?? 'pending';
-        // dd($state_name);
-        // Log::error($state_name);    
-        // error_log($request->query('state'));
         $users = User::where('state', config('user.'.$state_name))->paginate(config('user.user_per_page'));
         return view('users.index', compact('users'));
     }
@@ -26,14 +23,9 @@ class UserController extends Controller
     public function fetch(Request $request)
     {
         if ($request->ajax()) {
-            // dd($request->get('type'));
             error_log($request->get('state'));
             $state_name = $request->get('state') ??  'pending';
-            // $posts = Post::where('type','=',$type)->paginate(config('post.post_per_page'));
-            // error_log($posts->);
             $users = User::where('state', config('user.'.$state_name))->paginate(config('user.user_per_page'));
-
-            // $posts = Post::paginate(config('post.post_per_page'));
             return view('users.pagination', compact('users'))->render();
         }
     }

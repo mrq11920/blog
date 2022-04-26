@@ -18,9 +18,8 @@ class AdminRedirect
      */
     public function handle(Request $request, Closure $next)
     {
-        // dd('admin redirect');
         $guards = empty($guards) ? [null] : $guards;
-     
+
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 return redirect(RouteServiceProvider::DASHBOARD);

@@ -18,32 +18,19 @@ class RegistrationController extends Controller
     public function __invoke(Request $request)
     {
         $email = $request->email;
-        // error_log($email);
         $user = User::where('email', $email)->first();
         // case: resend email
         $confirmation_code = Str::random(30);
         if ($user) {
-            // $table->unsignedTinyInteger('type')->default(config('user.user'));
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->boolean('confirmed')->default(0);
-            // $table->string('confirmation_code')->nullable();
-            // $table->string('password');
-            error_log('user exists');
             $user->confirmation_code = $confirmation_code;
             $user->save();
         } else {
-            //create new user
-            error_log('create new user');
-
             User::create([
                 'name' => '',
                 'password' => 'sdflksjdlfw3',
                 'email' => $email,
                 'confirmation_code' => $confirmation_code
             ]);
-            // if (!$user) {
-            //     error_log('can not create new user!');
-            // }
         }
 
         Mail::send('email.verify', ['confirmation_code' => $confirmation_code], function ($message) use ($email) {
@@ -57,10 +44,9 @@ class RegistrationController extends Controller
 
     public function confirm($confirmation_code)
     {
-       
+
         if (!$confirmation_code) {
             error_log($confirmation_code);
-            // dd('error InvalidConfirmationCodeException');
             // throw new InvalidConfirmationCodeException;
         }
 
@@ -68,7 +54,6 @@ class RegistrationController extends Controller
 
         if (!$user) {
             // throw new InvalidConfirmationCodeException;
-            // dd('error InvalidConfirmationCodeException');
             error_log($confirmation_code);
         }
 
@@ -80,5 +65,5 @@ class RegistrationController extends Controller
 
         return view('register.confirm', ['email' => $user->email]);
     }
- 
+
 }
