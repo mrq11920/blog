@@ -23,7 +23,6 @@ class UserController extends Controller
     public function fetch(Request $request)
     {
         if ($request->ajax()) {
-            error_log($request->get('state'));
             $state_name = $request->get('state') ??  'pending';
             $users = User::where('state', config('user.'.$state_name))->paginate(config('user.user_per_page'));
             return view('users.pagination', compact('users'))->render();
