@@ -87,11 +87,10 @@ class AdminAuthentication
      */
     public function __construct(Auth $auth)
     {
-        error_log('construct adminmiddleware');
         $this->auth = $auth;
     }
 
-   
+
 
     /**
      * Determine if the user is logged in to any of the given guards.
@@ -104,11 +103,9 @@ class AdminAuthentication
      */
     protected function authenticate($request, array $guards)
     {
-        error_log('authenticate adminmiddleware');
 
         if (empty($guards)) {
             $guards = [null];
-            error_log('authenticate adminmiddleware| empty guards');
         }
 
         foreach ($guards as $guard) {
@@ -132,8 +129,6 @@ class AdminAuthentication
      */
     protected function unauthenticated($request, array $guards)
     {
-        error_log('unauthenticated adminmiddleware');
-
         throw new AuthenticationException(
             'Unauthenticated.', $guards, $this->redirectTo($request)
         );
